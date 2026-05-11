@@ -4,15 +4,15 @@ import client from '../api/client'
 import Header from './Header'
 
 export default function EditStudentPage() {
-  const { id } = useParams()   // reads the :id from /students/:id/edit
+  const { id } = useParams()   
   const navigate = useNavigate()
 
   const [form, setForm]       = useState({ name: '', age: '', email: '', city: '' })
-  const [fetching, setFetching] = useState(true)   // loading the existing student
-  const [saving, setSaving]   = useState(false)    // submitting the form
+  const [fetching, setFetching] = useState(true)   
+  const [saving, setSaving]   = useState(false)    
   const [error, setError]     = useState('')
 
-  // Fetch the existing student data to pre-fill the form
+  
   useEffect(() => {
     const fetchStudent = async () => {
       try {
@@ -20,7 +20,7 @@ export default function EditStudentPage() {
         const s = response.data
         setForm({
           name:  s.name,
-          age:   String(s.age),  // convert to string — input value must be string
+          age:   String(s.age),  
           email: s.email,
           city:  s.city,
         })
@@ -31,7 +31,7 @@ export default function EditStudentPage() {
       }
     }
     fetchStudent()
-  }, [id])   // re-fetch if the id in the URL changes
+  }, [id])   
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })

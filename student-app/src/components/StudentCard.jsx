@@ -38,5 +38,3 @@ export default function StudentCard({ student, onDelete }) {
   )
 }
 
-// This is the ONLY change to StudentCard from Day 11:
-// Added the Link element for the edit button above the existing delete button
