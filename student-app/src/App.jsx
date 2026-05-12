@@ -9,7 +9,6 @@ import ProtectedRoute from './components/ProtectedRoute'
 import CreateStudentPage from './components/CreateStudentPage'
 import EditStudentPage from './components/EditStudentPage'
 import AiChatPage from './components/AiChatPage'
-import ChatPage from './components/ChatPage'
 
 export default function App() {
   return (
