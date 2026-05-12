@@ -20,7 +20,7 @@ export default function AiChatPage() {
 
     try {
       // client already adds Authorization: Bearer <token> via interceptor
-      const res = await client.post('/ai/ask', { question })
+      const res = await client.post('/ai/chat', { question })
       setAnswer(res.data.answer)
     } catch (err) {
       setError(err.response?.data?.detail || 'Something went wrong. Please try again.')
