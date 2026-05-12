@@ -1,4 +1,3 @@
-// src/components/AiChatPage.jsx
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import client from '../api/client'
@@ -6,24 +5,30 @@ import Header from './Header'
 
 export default function AiChatPage() {
   const [question, setQuestion] = useState('')
-  const [answer, setAnswer]     = useState('')
-  const [loading, setLoading]   = useState(false)
-  const [error, setError]       = useState('')
+  const [answer, setAnswer] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   async function handleAsk(e) {
     e.preventDefault()
+
     if (!question.trim()) return
 
     setLoading(true)
     setError('')
-    setAnswer('')   // clear previous answer before new request
+    setAnswer('')
 
     try {
-      // client already adds Authorization: Bearer <token> via interceptor
-      const res = await client.post('/ai/chat', { question })
-      setAnswer(res.data.answer)
+      const res = await client.post('/ai/chat', {
+        message: question
+      })
+
+      setAnswer(res.data.reply)
     } catch (err) {
-      setError(err.response?.data?.detail || 'Something went wrong. Please try again.')
+      setError(
+        err.response?.data?.detail ||
+        'Something went wrong. Please try again.'
+      )
     } finally {
       setLoading(false)
     }
@@ -32,28 +37,49 @@ export default function AiChatPage() {
   return (
     <>
       <Header />
+
       <main className="sma-main">
         <div className="ai-page">
           <div className="ai-page-header">
-            <Link to="/students" className="sma-back-link">← Back to Students</Link>
-            <h2 className="ai-page-title">AI Study Assistant</h2>
+            <Link
+              to="/students"
+              className="sma-back-link"
+            >
+              ← Back to Students
+            </Link>
+
+            <h2 className="ai-page-title">
+              AI Study Assistant
+            </h2>
+
             <p className="ai-page-subtitle">
-              Ask any question about Python or full stack development — powered by Google Gemini
+              Ask any question about Python or Full Stack Development
             </p>
           </div>
 
-          <form onSubmit={handleAsk} className="sma-form sma-form-wide">
+          <form
+            onSubmit={handleAsk}
+            className="sma-form sma-form-wide"
+          >
             <div className="sma-form-group">
-              <label className="sma-label">Your Question</label>
+              <label className="sma-label">
+                Your Question
+              </label>
+
               <textarea
                 className="ai-textarea"
-                placeholder="e.g. What is the difference between a list and a tuple?"
+                placeholder="Ask something..."
                 value={question}
-                onChange={e => setQuestion(e.target.value)}
+                onChange={(e) =>
+                  setQuestion(e.target.value)
+                }
                 rows={4}
                 maxLength={1000}
               />
-              <div className="ai-char-count">{question.length} / 1000</div>
+
+              <div className="ai-char-count">
+                {question.length} / 1000
+              </div>
             </div>
 
             <div className="sma-form-actions">
@@ -62,19 +88,26 @@ export default function AiChatPage() {
                 className="sma-btn sma-btn-primary"
                 disabled={loading || !question.trim()}
               >
-                {loading ? 'Thinking...' : 'Ask Gemini'}
+                {loading ? 'Thinking...' : 'Ask AI'}
               </button>
             </div>
           </form>
 
           {error && (
-            <div className="sma-alert sma-alert-error">{error}</div>
+            <div className="sma-alert sma-alert-error">
+              {error}
+            </div>
           )}
 
           {answer && (
             <div className="ai-answer-box">
-              <div className="ai-answer-label">Gemini says</div>
-              <div className="ai-answer-text">{answer}</div>
+              <div className="ai-answer-label">
+                AI Response
+              </div>
+
+              <div className="ai-answer-text">
+                {answer}
+              </div>
             </div>
           )}
         </div>
