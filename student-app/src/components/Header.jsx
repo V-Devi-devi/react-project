@@ -1,12 +1,12 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 export default function Header() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    navigate('/', { replace: true })
-  }
+    localStorage.removeItem("token");
+    navigate("/", { replace: true });
+  };
 
   return (
     <header className="sma-header">
@@ -20,17 +20,23 @@ export default function Header() {
         <NavLink
           to="/students"
           className={({ isActive }) =>
-            isActive ? 'sma-header-nav-item sma-nav-active' : 'sma-header-nav-item'
+            isActive
+              ? "sma-header-nav-item sma-nav-active"
+              : "sma-header-nav-item"
           }
         >
           Students
         </NavLink>
-        <Link to="/ai" className="sma-nav-link">AI Assistant</Link>
+        <NavLink to="/ai/chat" className="sma-nav-link">
+          AI Chat
+        </NavLink>
+        <NavLink to="/ai/stream" className="sma-nav-link">
+          AI Chat (Stream)
+        </NavLink>
         <button className="sma-btn-logout" onClick={handleLogout}>
           Sign Out
         </button>
       </nav>
     </header>
-  )
+  );
 }
-

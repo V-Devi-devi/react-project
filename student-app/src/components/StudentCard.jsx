@@ -1,8 +1,6 @@
-import { Link } from 'react-router-dom'
-
-
+import { Link } from "react-router-dom";
 export default function StudentCard({ student, onDelete }) {
-  const { id, name, age, email, city = 'Unknown' } = student
+  const { id, name, age, email, city = "Unknown" } = student;
 
   return (
     <div className="sma-student-card">
@@ -35,6 +33,5 @@ export default function StudentCard({ student, onDelete }) {
         </button>
       </div>
     </div>
-  )
+  );
 }
-
